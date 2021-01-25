@@ -2,7 +2,7 @@
 
 set -e
 
-cat << EOS | sed -i '1r /dev/stdin' Assets/CHANGELOG.md
+cat << EOS | sed -i '1r /dev/stdin' CHANGELOG.md
 
 ## [${INPUT_RELEASE_VERSION##v}] - $(date "+%Y-%m-%d")
 
