@@ -17,11 +17,11 @@ if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
     INPUT_NPM_REGISTRY_URL=$(cat .npmrc | sed 's/^registry=//')
     echo $(cat .npmrc | grep '^registry=' | sed 's/^registry=https://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
 else
-    echo $(echo -n "${INPUT_NPM_REGISTRY_URL}" | sed 's/^https://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
+    echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^https://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
 fi
 
 cat ~/.npmrc
-echo (cat ~/.npmrc)
+
 
 npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
 
