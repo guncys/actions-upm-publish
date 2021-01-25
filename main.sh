@@ -15,11 +15,11 @@ mv /tmp/package.json package.json
 
 echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^https://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
 
-
+echo "Inside ~/.npmrc"
 cat ~/.npmrc
 
 
-npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
+# npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
 
 git config --global user.email "github-actions@example.com"
 git config --global user.name "GitHub Actions"
