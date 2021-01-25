@@ -13,7 +13,7 @@ EOS
 cat package.json | jq -Mr '. | .version = "'"${INPUT_RELEASE_VERSION##v}"'"' > /tmp/package.json
 mv /tmp/package.json package.json
 
-echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^https://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
+echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^http://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
 
 echo "Inside ~/.npmrc"
 cat ~/.npmrc
