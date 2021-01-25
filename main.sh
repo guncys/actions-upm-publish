@@ -10,8 +10,8 @@ ${INPUT_RELEASE_SUMMARY}
 
 $(echo "${INPUT_RELEASE_BODY}" | sed 's/^#/\#\#/')
 EOS
-cat Assets/package.json | jq -Mr '. | .version = "'"${INPUT_RELEASE_VERSION##v}"'"' > /tmp/package.json
-mv /tmp/package.json Assets/package.json
+cat package.json | jq -Mr '. | .version = "'"${INPUT_RELEASE_VERSION##v}"'"' > /tmp/package.json
+mv /tmp/package.json package.json
 
 if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
     INPUT_NPM_REGISTRY_URL=$(cat .npmrc | sed 's/^registry=//')
@@ -19,7 +19,7 @@ if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
 else
     echo $(echo -n "${INPUT_NPM_REGISTRY_URL}" | sed 's/^https://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
 fi
-npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} ${INPUT_PACKAGE_DIRECTORY_PATH}
+npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
 
 git config --global user.email "github-actions@example.com"
 git config --global user.name "GitHub Actions"
