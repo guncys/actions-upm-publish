@@ -13,12 +13,8 @@ EOS
 cat package.json | jq -Mr '. | .version = "'"${INPUT_RELEASE_VERSION##v}"'"' > /tmp/package.json
 mv /tmp/package.json package.json
 
-if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
-    INPUT_NPM_REGISTRY_URL=$(cat .npmrc | sed 's/^registry=//')
-    echo $(cat .npmrc | grep '^registry=' | sed 's/^registry=https://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
-else
-    echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^https://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
-fi
+echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^https://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
+
 
 cat ~/.npmrc
 
