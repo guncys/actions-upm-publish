@@ -13,13 +13,13 @@ EOS
 cat package.json | jq -Mr '. | .version = "'"${INPUT_RELEASE_VERSION##v}"'"' > /tmp/package.json
 mv /tmp/package.json package.json
 
-echo $(echo -n "http://dev.upm.guncys.net:4873" | sed 's/^http://')'/:_authToken="'tK5vucgkB7dqQVENM6cdizjogTq4ole+MdXx3tEY1H0='"' >> ~/.npmrc
-
-echo "Inside ~/.npmrc"
-cat ~/.npmrc
-
-
-# npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
+if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
+    INPUT_NPM_REGISTRY_URL=$(cat .npmrc | sed 's/^registry=//')
+    echo $(cat .npmrc | grep '^registry=' | sed 's/^registry=http://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
+else
+    echo $(echo -n "${INPUT_NPM_REGISTRY_URL}" | sed 's/^http://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
+fi
+npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} ${INPUT_PACKAGE_DIRECTORY_PATH}
 
 git config --global user.email "github-actions@example.com"
 git config --global user.name "GitHub Actions"
