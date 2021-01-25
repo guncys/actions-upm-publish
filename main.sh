@@ -19,6 +19,10 @@ if [ -z "${INPUT_NPM_REGISTRY_URL}" ]; then
 else
     echo $(echo -n "${INPUT_NPM_REGISTRY_URL}" | sed 's/^https://')'/:_authToken="'${INPUT_NPM_AUTH_TOKEN}'"' >> ~/.npmrc
 fi
+
+cat .npmrc
+echo (cat .npmrc)
+
 npm publish --tag latest --registry ${INPUT_NPM_REGISTRY_URL} 
 
 git config --global user.email "github-actions@example.com"
